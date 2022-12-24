@@ -1,24 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { PuffLoader } from "react-spinners";
+import { ReactFlowProvider } from "reactflow";
+import "./index.css"
+
+import Flow from "./components/Nodes/components/Flow";
 
 function App() {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="h-screen">
+      {loading ? (
+        <div className="flex justify-center items-center m-auto w-screen h-screen">
+          <PuffLoader color="#c9302c" size={100} />
+
+        </div>
+      ) : (
+        <ReactFlowProvider>
+          <Flow />
+        </ReactFlowProvider>
+      )}
     </div>
   );
 }
